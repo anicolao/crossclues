@@ -12,6 +12,8 @@ Players can set up either supported board size with physically accurate card spa
 - [x] Coordinates cover A1 through D4
 - [x] Each card is 60 mm wide at 109 pixels per inch
 - [x] Each card is 60 mm tall at 110 pixels per inch
+- [x] The word rail is one-third of a grid card deep
+- [x] Border cards contain words without duplicate coordinate labels
 - [x] Four distinct column words and four distinct row words are dealt
 
 ---

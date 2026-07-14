@@ -15,6 +15,8 @@ test('US-001: Players configure a physically accurate board', async ({ page }, t
       { spec: 'Coordinates cover A1 through D4', check: async () => { await expect(page.locator('[data-cell="A1"]')).toBeVisible(); await expect(page.locator('[data-cell="D4"]')).toBeVisible(); } },
       { spec: 'Each card is 60 mm wide at 109 pixels per inch', check: async () => expect((await page.locator('[data-cell="A1"]').boundingBox())?.width).toBeCloseTo(257.48, 1) },
       { spec: 'Each card is 60 mm tall at 110 pixels per inch', check: async () => expect((await page.locator('[data-cell="A1"]').boundingBox())?.height).toBeCloseTo(259.84, 1) },
+      { spec: 'The word rail is one-third of a grid card deep', check: async () => expect((await page.locator('.headers-top .header-card').first().boundingBox())?.height).toBeCloseTo(86.61, 1) },
+      { spec: 'Border cards contain words without duplicate coordinate labels', check: async () => expect(page.locator('.header-card strong')).toHaveCount(0) },
       { spec: 'Four distinct column words and four distinct row words are dealt', check: async () => expect(await page.locator('.headers-top .header-card, .headers-left .header-card').evaluateAll(cards => new Set(cards.map(card => card.getAttribute('data-word'))).size)).toBe(8) }
     ]
   });

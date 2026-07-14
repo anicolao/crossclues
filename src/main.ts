@@ -36,7 +36,7 @@ function sparkle(index: number) {
 
 function header(value: string, word: string, edge: 'top' | 'right' | 'bottom' | 'left', index: number) {
   return `<div class="header-card ${edge}" data-edge="${edge}" data-coordinate="${value}" data-word="${word}">
-    <div class="header-content"><strong>${value}</strong><span>${word}</span></div>${sparkle(index)}
+    <div class="header-content"><span>${word}</span></div>${sparkle(index)}
   </div>`;
 }
 
