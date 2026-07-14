@@ -1,0 +1,104 @@
+:root {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #17100d;
+  background: #3a1c12;
+  font-synthesis: none;
+  touch-action: manipulation;
+  --card-width: 257.48px;
+  --card-height: 259.84px;
+  --gap: 12px;
+}
+
+* { box-sizing: border-box; }
+html, body, #app { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+button { font: inherit; -webkit-tap-highlight-color: transparent; }
+
+.tabletop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  user-select: none;
+  background:
+    linear-gradient(90deg, rgba(26, 8, 3, .28), transparent 14%, transparent 84%, rgba(26, 8, 3, .3)),
+    repeating-linear-gradient(0deg, transparent 0 12px, rgba(255,255,255,.018) 13px 14px, transparent 15px 126px, rgba(27, 7, 2, .28) 127px 129px),
+    #5b2c1b;
+}
+
+.board {
+  width: calc(var(--card-width) * (var(--size) + 2) + var(--gap) * 2);
+  height: calc(var(--card-height) * (var(--size) + 2) + var(--gap) * 2);
+  display: grid;
+  grid-template: var(--card-height) calc(var(--card-height) * var(--size)) var(--card-height) / var(--card-width) calc(var(--card-width) * var(--size)) var(--card-width);
+  gap: var(--gap);
+  filter: drop-shadow(0 15px 20px rgba(17, 5, 0, .34));
+}
+
+.grid {
+  grid-area: 2 / 2;
+  display: grid;
+  grid-template-columns: repeat(var(--size), var(--card-width));
+  grid-template-rows: repeat(var(--size), var(--card-height));
+  background: rgba(30, 10, 5, .32);
+  box-shadow: 0 0 0 var(--gap) rgba(30, 10, 5, .32), inset 0 2px 8px rgba(0,0,0,.35);
+}
+
+.clue-card, .header-card {
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  overflow: hidden;
+  border: 5px solid #f45d83;
+  border-radius: 8px;
+  box-shadow: 0 4px 0 #e5d9b9, 0 8px 12px rgba(19, 5, 0, .4), inset 0 0 0 3px rgba(255,255,255,.4);
+}
+
+.clue-card {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(255,255,255,.34), transparent 28%), #55d3d9;
+}
+
+.clue-card > span:not(.reverse) { font-size: 116px; font-weight: 700; line-height: 1; text-shadow: 3px 3px 0 rgba(255,255,255,.62); }
+.clue-card small { font-size: .48em; margin-left: .04em; }
+.clue-card .reverse { position: absolute; right: 8%; bottom: 6%; font-size: 38px; font-weight: 700; line-height: 1; transform: rotate(180deg); opacity: .66; }
+
+.headers { display: grid; }
+.headers-top, .headers-bottom { grid-template-columns: repeat(var(--size), var(--card-width)); }
+.headers-left, .headers-right { grid-template-rows: repeat(var(--size), var(--card-height)); }
+.headers-top { grid-area: 1 / 2; }
+.headers-right { grid-area: 2 / 3; }
+.headers-bottom { grid-area: 3 / 2; }
+.headers-left { grid-area: 2 / 1; }
+
+.header-card { display: grid; place-items: center; background: linear-gradient(145deg, #fffdf0, #eee5cc); }
+.header-content { width: 100%; height: 100%; display: grid; grid-template-rows: 1fr 62px; place-items: center; }
+.header-content strong { font-size: 132px; font-style: italic; line-height: .9; text-shadow: 3px 3px 0 #fff; }
+.header-content span { align-self: stretch; width: 100%; display: grid; place-items: center; padding: 3px 10px; overflow: hidden; border-top: 5px solid #f45d83; color: #17100d; background: #55d3d9; font: 900 28px/1 Arial, sans-serif; text-align: center; text-transform: uppercase; }
+.header-card.right .header-content { transform: rotate(90deg); width: var(--card-height); height: var(--card-width); }
+.header-card.bottom .header-content { transform: rotate(180deg); }
+.header-card.left .header-content { transform: rotate(-90deg); width: var(--card-height); height: var(--card-width); }
+
+.sparkle { position: absolute; color: rgba(255,255,255,.9); font: normal 700 27px/1 sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.15); pointer-events: none; }
+.sparkle-a { top: 7%; right: 8%; }
+.sparkle-b { bottom: 8%; left: 9%; }
+
+.corner { position: absolute; z-index: 2; }
+.corner-nw { left: 42px; top: 36px; }
+.corner-se { right: 42px; bottom: 36px; }
+.controls { display: flex; gap: 18px; transform: rotate(var(--rotation)); }
+.round-button { position: relative; width: 86px; height: 86px; display: grid; place-items: center; padding: 13px; border: 4px solid #dfd5b9; border-radius: 50%; color: #f9f2dc; background: rgba(36, 13, 7, .82); box-shadow: 0 6px 12px rgba(0,0,0,.4), inset 0 0 0 2px rgba(255,255,255,.09); cursor: pointer; transform: rotate(var(--counter-rotation)); }
+.round-button.selected { border-color: #f45d83; background: #236d72; }
+.round-button:focus-visible { outline: 5px solid white; outline-offset: 4px; }
+.size-button b { position: absolute; font: 700 23px/1 Arial, sans-serif; text-shadow: 0 1px 2px #000; }
+.mini-grid { width: 100%; height: 100%; display: grid; gap: 2px; opacity: .56; }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-5 { grid-template-columns: repeat(5, 1fr); }
+.mini-grid i { border: 1px solid #fff7df; border-radius: 1px; }
+.shuffle-button svg { width: 54px; height: 54px; fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .clue-card, .header-card { animation: settle 260ms ease-out both; animation-delay: calc((var(--r, 0) + var(--c, 0)) * 12ms); }
+  @keyframes settle { from { opacity: 0; transform: scale(.94); } }
+}
