@@ -17,6 +17,8 @@ test('US-001: Players configure a physically accurate board', async ({ page }, t
       { spec: 'Each card is 60 mm tall at 110 pixels per inch', check: async () => expect((await page.locator('[data-cell="A1"]').boundingBox())?.height).toBeCloseTo(259.84, 1) },
       { spec: 'The word rail is one-third of a grid card deep', check: async () => expect((await page.locator('.headers-top .header-card').first().boundingBox())?.height).toBeCloseTo(86.61, 1) },
       { spec: 'Border cards contain words without duplicate coordinate labels', check: async () => expect(page.locator('.header-card strong')).toHaveCount(0) },
+      { spec: 'Grid cards have a one millimetre horizontal gutter', check: async () => { const a1 = await page.locator('[data-cell="A1"]').boundingBox(); const b1 = await page.locator('[data-cell="B1"]').boundingBox(); expect(b1!.x - a1!.x - a1!.width).toBeCloseTo(4.29, 1); } },
+      { spec: 'Grid cards have a one millimetre vertical gutter', check: async () => { const a1 = await page.locator('[data-cell="A1"]').boundingBox(); const a2 = await page.locator('[data-cell="A2"]').boundingBox(); expect(a2!.y - a1!.y - a1!.height).toBeCloseTo(4.33, 1); } },
       { spec: 'Four distinct column words and four distinct row words are dealt', check: async () => expect(await page.locator('.headers-top .header-card, .headers-left .header-card').evaluateAll(cards => new Set(cards.map(card => card.getAttribute('data-word'))).size)).toBe(8) }
     ]
   });
@@ -29,7 +31,8 @@ test('US-001: Players configure a physically accurate board', async ({ page }, t
       { spec: 'Coordinates now cover A1 through E5', check: async () => { await expect(page.locator('[data-cell="A1"]')).toBeVisible(); await expect(page.locator('[data-cell="E5"]')).toBeVisible(); } },
       { spec: 'The card dimensions remain physically unchanged', check: async () => { const box = await page.locator('[data-cell="E5"]').boundingBox(); expect(box?.width).toBeCloseTo(257.48, 1); expect(box?.height).toBeCloseTo(259.84, 1); } },
       { spec: 'The five by five choice is active at both table edges', check: async () => expect(page.locator('[data-size="5"][aria-pressed="true"]')).toHaveCount(2) },
-      { spec: 'E and 5 each have a visible word', check: async () => { await expect(page.locator('.headers-top [data-coordinate="E"] .header-content span')).not.toBeEmpty(); await expect(page.locator('.headers-left [data-coordinate="5"] .header-content span')).not.toBeEmpty(); } }
+      { spec: 'E and 5 each have a visible word', check: async () => { await expect(page.locator('.headers-top [data-coordinate="E"] .header-content span')).not.toBeEmpty(); await expect(page.locator('.headers-left [data-coordinate="5"] .header-content span')).not.toBeEmpty(); } },
+      { spec: 'The five by five layout uses only top and left word rails', check: async () => { await expect(page.locator('.headers-top, .headers-left')).toHaveCount(2); await expect(page.locator('.headers-right, .headers-bottom')).toHaveCount(0); } }
     ]
   });
 

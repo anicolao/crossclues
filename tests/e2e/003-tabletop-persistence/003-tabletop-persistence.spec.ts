@@ -16,7 +16,7 @@ test('US-003: Setup survives interruption and works from opposing seats', async 
       { spec: 'The board changes to five by five', check: async () => expect(page.locator('.tabletop')).toHaveAttribute('data-board-size', '5') },
       { spec: 'The deal advances', check: async () => expect(page.locator('.tabletop')).toHaveAttribute('data-deal', '2') },
       { spec: 'Every round control exceeds the 60 pixel tabletop touch minimum', check: async () => expect(await page.locator('.round-button').evaluateAll(buttons => buttons.every(button => button.getBoundingClientRect().width >= 60 && button.getBoundingClientRect().height >= 60))).toBe(true) },
-      { spec: 'Bottom and right header content faces the opposite seat', check: async () => { await expect(page.locator('.headers-bottom .header-content').first()).toHaveCSS('transform', 'matrix(-1, 0, 0, -1, 0, 0)'); await expect(page.locator('.headers-right .header-content').first()).not.toHaveCSS('transform', 'none'); } }
+      { spec: 'The space-saving layout retains the top and left word rails', check: async () => { await expect(page.locator('.headers-top .header-card')).toHaveCount(5); await expect(page.locator('.headers-left .header-card')).toHaveCount(5); } }
     ]
   });
 

@@ -8,7 +8,9 @@
   --card-height: 259.84px;
   --header-width: 85.83px;
   --header-height: 86.61px;
-  --gap: 12px;
+  --rail-gap: 12px;
+  --card-gap-x: 4.29px;
+  --card-gap-y: 4.33px;
 }
 
 * { box-sizing: border-box; }
@@ -29,12 +31,20 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 }
 
 .board {
-  width: calc(var(--card-width) * var(--size) + var(--header-width) * 2 + var(--gap) * 2);
-  height: calc(var(--card-height) * var(--size) + var(--header-height) * 2 + var(--gap) * 2);
+  --grid-width: calc(var(--card-width) * var(--size) + var(--card-gap-x) * (var(--size) - 1));
+  --grid-height: calc(var(--card-height) * var(--size) + var(--card-gap-y) * (var(--size) - 1));
+  width: calc(var(--grid-width) + var(--header-width) * 2 + var(--rail-gap) * 2);
+  height: calc(var(--grid-height) + var(--header-height) * 2 + var(--rail-gap) * 2);
   display: grid;
-  grid-template: var(--header-height) calc(var(--card-height) * var(--size)) var(--header-height) / var(--header-width) calc(var(--card-width) * var(--size)) var(--header-width);
-  gap: var(--gap);
+  grid-template: var(--header-height) var(--grid-height) var(--header-height) / var(--header-width) var(--grid-width) var(--header-width);
+  gap: var(--rail-gap);
   filter: drop-shadow(0 15px 20px rgba(17, 5, 0, .34));
+}
+
+.tabletop[data-board-size="5"] .board {
+  width: calc(var(--grid-width) + var(--header-width) + var(--rail-gap));
+  height: calc(var(--grid-height) + var(--header-height) + var(--rail-gap));
+  grid-template: var(--header-height) var(--grid-height) / var(--header-width) var(--grid-width);
 }
 
 .grid {
@@ -42,8 +52,10 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
   display: grid;
   grid-template-columns: repeat(var(--size), var(--card-width));
   grid-template-rows: repeat(var(--size), var(--card-height));
+  column-gap: var(--card-gap-x);
+  row-gap: var(--card-gap-y);
   background: rgba(30, 10, 5, .32);
-  box-shadow: 0 0 0 var(--gap) rgba(30, 10, 5, .32), inset 0 2px 8px rgba(0,0,0,.35);
+  box-shadow: 0 0 0 var(--rail-gap) rgba(30, 10, 5, .32), inset 0 2px 8px rgba(0,0,0,.35);
 }
 
 .clue-card {
@@ -69,6 +81,8 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 .headers { display: grid; }
 .headers-top, .headers-bottom { grid-template-columns: repeat(var(--size), var(--card-width)); }
 .headers-left, .headers-right { grid-template-rows: repeat(var(--size), var(--card-height)); }
+.headers-top, .headers-bottom { column-gap: var(--card-gap-x); }
+.headers-left, .headers-right { row-gap: var(--card-gap-y); }
 .headers-top { grid-area: 1 / 2; }
 .headers-right { grid-area: 2 / 3; }
 .headers-bottom { grid-area: 3 / 2; }

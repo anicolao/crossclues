@@ -69,8 +69,8 @@ function render() {
       <div class="corner corner-se">${controls(180)}</div>
       <div class="board" style="--size:${size}">
         <div class="headers headers-top">${cols.map((value, i) => header(value, columnWords[i], 'top', i)).join('')}</div>
-        <div class="headers headers-right">${rows.map((value, i) => header(value, rowWords[i], 'right', i)).join('')}</div>
-        <div class="headers headers-bottom">${cols.map((value, i) => header(value, columnWords[i], 'bottom', i)).join('')}</div>
+        ${size === 4 ? `<div class="headers headers-right">${rows.map((value, i) => header(value, rowWords[i], 'right', i)).join('')}</div>` : ''}
+        ${size === 4 ? `<div class="headers headers-bottom">${cols.map((value, i) => header(value, columnWords[i], 'bottom', i)).join('')}</div>` : ''}
         <div class="headers headers-left">${rows.map((value, i) => header(value, rowWords[i], 'left', i)).join('')}</div>
         <div class="grid" role="grid" aria-label="${size} by ${size} Cross Clues board">${cells}</div>
       </div>

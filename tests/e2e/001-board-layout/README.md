@@ -14,6 +14,8 @@ Players can set up either supported board size with physically accurate card spa
 - [x] Each card is 60 mm tall at 110 pixels per inch
 - [x] The word rail is one-third of a grid card deep
 - [x] Border cards contain words without duplicate coordinate labels
+- [x] Grid cards have a one millimetre horizontal gutter
+- [x] Grid cards have a one millimetre vertical gutter
 - [x] Four distinct column words and four distinct row words are dealt
 
 ---
@@ -29,3 +31,4 @@ Players can set up either supported board size with physically accurate card spa
 - [x] The card dimensions remain physically unchanged
 - [x] The five by five choice is active at both table edges
 - [x] E and 5 each have a visible word
+- [x] The five by five layout uses only top and left word rails

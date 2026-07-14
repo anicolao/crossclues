@@ -11,7 +11,7 @@ The current setup survives a reload and controls remain reachable from opposing 
 - [x] The board changes to five by five
 - [x] The deal advances
 - [x] Every round control exceeds the 60 pixel tabletop touch minimum
-- [x] Bottom and right header content faces the opposite seat
+- [x] The space-saving layout retains the top and left word rails
 
 ---
 
